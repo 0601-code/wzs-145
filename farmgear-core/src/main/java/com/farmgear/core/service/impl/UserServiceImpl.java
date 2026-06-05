@@ -8,6 +8,7 @@ import com.farmgear.core.entity.User;
 import com.farmgear.core.mapper.UserMapper;
 import com.farmgear.core.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -19,14 +20,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public Map<String, Object> login(LoginDTO loginDTO) {
         User user = getByUsername(loginDTO.getUsername());
         if (user == null) {
-            throw new RuntimeException("用户不存在");
+            throw new RuntimeException("用户名或密码错误");
         }
         if (user.getStatus() != 1) {
             throw new RuntimeException("用户已被禁用");
+        }
+        if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword())) {
+            throw new RuntimeException("用户名或密码错误");
         }
 
         String token = jwtUtil.generateToken(user.getId(), user.getUsername(), user.getRole());

@@ -163,9 +163,9 @@ INSERT INTO work_item (item_name, item_code, unit_price, description) VALUES
 ('耕地', 'PLOUGHING', 45.00, '耕地作业');
 
 INSERT INTO sys_user (username, password, real_name, phone, role, status) VALUES
-('admin', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', '管理员', '13800138000', 'ADMIN', 1),
-('coop1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', '张合作社', '13800138001', 'COOP', 1),
-('farmer1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', '李农户', '13800138002', 'FARMER', 1);
+('admin', '$2a$10$vI8aWBnW3fID.ZQ1.GR8VeXNwgevH.0vCq/pX3Zb.qCUNO.ra4yq', '管理员', '13800138000', 'ADMIN', 1),
+('coop1', '$2a$10$vI8aWBnW3fID.ZQ1.GR8VeXNwgevH.0vCq/pX3Zb.qCUNO.ra4yq', '张合作社', '13800138001', 'COOP', 1),
+('farmer1', '$2a$10$vI8aWBnW3fID.ZQ1.GR8VeXNwgevH.0vCq/pX3Zb.qCUNO.ra4yq', '李农户', '13800138002', 'FARMER', 1);
 
 INSERT INTO driver (driver_name, phone, id_card, license_type, status) VALUES
 ('王司机', '13900139001', '410101199001010001', 'G2', 'AVAILABLE'),
