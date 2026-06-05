@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: farmgear-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: farmgear
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./farmgear-core/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  farmgear-core:
+    build:
+      context: ./farmgear-core
+      dockerfile: Dockerfile
+    container_name: farmgear-core
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
+      MYSQL_DATABASE: farmgear
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root123456
+      TZ: Asia/Shanghai
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  farmgear-board:
+    build:
+      context: ./farmgear-board
+      dockerfile: Dockerfile
+    container_name: farmgear-board
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      TZ: Asia/Shanghai
+    depends_on:
+      - farmgear-core
+
+volumes:
+  mysql-data:
