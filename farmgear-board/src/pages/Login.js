@@ -75,9 +75,9 @@ const Login = () => {
           </Form.Item>
 
           <div style={{ textAlign: 'center', color: '#999', fontSize: '12px' }}>
-            <p>测试账号: admin / 任意密码</p>
-            <p>合作社: coop1 / 任意密码</p>
-            <p>农户: farmer1 / 任意密码</p>
+            <p>测试账号: admin / 123456</p>
+            <p>合作社: coop1 / 123456</p>
+            <p>农户: farmer1 / 123456</p>
           </div>
         </Form>
       </Card>
